@@ -40,10 +40,13 @@ class RegisterCubit extends Cubit<RegisterState> {
       user = userCredential.user;
       emit(RegisterState.loaded(user: user!));
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        this.emit(RegisterState.error(generic: 'Email or password incorrect'));
+      if (e.code == 'email-already-in-use') {
+        this.emit(RegisterState.error(generic: 'Email already exist'));
       } else if (e.code == 'wrong-password') {
         this.emit(RegisterState.error(generic: 'Email or password incorrect'));
+      } else {
+        this.emit(RegisterState.error(
+            generic: 'An error occurred, please try again later'));
       }
     } catch (e) {
       this.emit(RegisterState.error(

@@ -117,7 +117,9 @@ mTextField(String label,
             hintText: hintText,
             textBoxPadding: textBoxPadding,
             isPassword: isPassword),
-        error == null ? SizedBox() : regularErrorText('$error')
+        error == null || error.length < 1
+            ? SizedBox()
+            : regularErrorText('$error')
       ],
     ),
   );

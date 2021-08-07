@@ -6,12 +6,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
-  final _emailTextController = TextEditingController();
-
+class ForgotPasswordPage extends StatefulWidget {
   final Function? onRequested;
 
   ForgotPasswordPage({this.onRequested});
+
+  @override
+  _ForgotPasswordPageState createState() => _ForgotPasswordPageState();
+}
+
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+  final _emailTextController = TextEditingController();
 
   actionButtons(context, ForgotPasswordCubit forgotBloc) {
     return Container(
@@ -58,8 +63,8 @@ class ForgotPasswordPage extends StatelessWidget {
             (initial) => null,
             (loading) => null,
             (loaded) {
-              if (onRequested != null)
-                onRequested!();
+              if (widget.onRequested != null)
+                widget.onRequested!();
               else
                 params.forgotRequested!();
             },
@@ -70,42 +75,57 @@ class ForgotPasswordPage extends StatelessWidget {
           );
         },
         builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-            child: Form(
-              child: ListView(
-                children: <Widget>[
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      boldText('Forgot password'),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  mTextField('Email address',
-                      onChanged: (text) {},
-                      controller: _emailTextController,
-                      error: state.join(
-                        (initial) => null,
-                        (loading) => '',
-                        (loaded) => null,
-                        (error) => error.emailError,
-                      )),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  state.join(
-                    (initial) => actionButtons(context, forgotBloc),
-                    (loading) => networkActivityIndicator(),
-                    (loaded) => actionButtons(context, forgotBloc),
-                    (error) => actionButtons(context, forgotBloc),
-                  ),
-                ],
+          return state.join(
+            (initial) => buildForm(state, context, forgotBloc),
+            (loading) => buildForm(state, context, forgotBloc),
+            (loaded) => Center(
+              child: Text(
+                'Password reset instruction sent to email',
+                style: TextStyle(fontSize: 16),
               ),
             ),
+            (error) => buildForm(state, context, forgotBloc),
           );
         },
+      ),
+    );
+  }
+
+  Padding buildForm(ForgotPasswordState state, BuildContext context,
+      ForgotPasswordCubit forgotBloc) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+      child: Form(
+        child: ListView(
+          children: <Widget>[
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                boldText('Forgot password'),
+              ],
+            ),
+            SizedBox(height: 10),
+            mTextField('Email address',
+                onChanged: (text) {},
+                controller: _emailTextController,
+                error: state.join(
+                  (initial) => null,
+                  (loading) => '',
+                  (loaded) => null,
+                  (error) => error.emailError,
+                )),
+            SizedBox(
+              height: 18,
+            ),
+            state.join(
+              (initial) => actionButtons(context, forgotBloc),
+              (loading) => networkActivityIndicator(),
+              (loaded) => actionButtons(context, forgotBloc),
+              (error) => actionButtons(context, forgotBloc),
+            ),
+          ],
+        ),
       ),
     );
   }

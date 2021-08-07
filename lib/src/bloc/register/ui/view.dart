@@ -48,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext buildContext) {
     RegisterCubit registerCubit = RegisterCubit();
     InheritParameters params = InheritParameters.of(context);
 
@@ -95,7 +95,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         );
                       }
                     },
-                    (error) => null,
+                    (error) {
+                      if (error.genericError != null &&
+                          error.genericError!.length > 0)
+                        mSnackBar(
+                            context: buildContext, message: error.genericError);
+                    },
                   );
                 },
                 builder: (context, state) {
@@ -114,7 +119,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 (loaded) => null,
                                 (error) => error.phoneError,
                               )),
-                          SizedBox(height: 8.0),
                           mTextField('Email address',
                               onChanged: (text) {},
                               controller: _emailTextController,
@@ -124,7 +128,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 (loaded) => null,
                                 (error) => error.emailError,
                               )),
-                          SizedBox(height: 8.0),
                           mTextField('Password',
                               isPassword: true,
                               onChanged: (text) {},
@@ -135,7 +138,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 (loaded) => null,
                                 (error) => error.passwordError,
                               )),
-                          SizedBox(height: 32.0),
+                          SizedBox(height: 18.0),
                           state.join(
                             (initial) => actionButton(registerCubit),
                             (loading) => networkActivityIndicator(),

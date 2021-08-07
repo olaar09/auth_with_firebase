@@ -136,7 +136,6 @@ class SignInPage extends StatelessWidget {
                           (loaded) => null,
                           (error) => error.emailError,
                         )),
-                    SizedBox(height: 8.0),
                     mTextField('Password',
                         isPassword: true,
                         onChanged: (text) {},
@@ -148,7 +147,7 @@ class SignInPage extends StatelessWidget {
                           (error) => error.passwordError,
                         )),
                     SizedBox(
-                      height: 30,
+                      height: 18.0,
                     ),
                     state.join(
                       (initial) => actionButtons(context, authBloc),
