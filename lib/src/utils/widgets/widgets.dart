@@ -1,3 +1,4 @@
+import 'package:auth_with_firebase/src/utils/widgets/text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -108,15 +109,14 @@ mTextField(String label,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         label.length > 0 ? regularText('$label') : SizedBox(),
-        CupertinoTextField(
-          onChanged: onChanged,
-          keyboardType: keyboardType,
-          style: TextStyle(fontSize: fontSize),
-          controller: controller,
-          //   hintText: hintText,
-          // textBoxPadding: textBoxPadding,
-          obscureText: isPassword,
-        ),
+        TextInput(
+            onChanged: onChanged,
+            keyboardType: keyboardType,
+            fontSize: fontSize,
+            controller: controller,
+            hintText: hintText,
+            textBoxPadding: textBoxPadding,
+            isPassword: isPassword),
         error == null ? SizedBox() : regularErrorText('$error')
       ],
     ),

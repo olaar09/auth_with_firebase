@@ -44,6 +44,13 @@ class MyApp extends StatelessWidget {
               ),
             );
           },
+          onSignUp: ({required User user, String? phoneNumber}) {
+            print(
+                'User signup, email is ${user.email}  -- phone number is ${user.phoneNumber}');
+          },
+          onRequested: () {
+            print('User forgot, requested');
+          },
         ),
       ),
     );

@@ -10,6 +10,12 @@ class FireAuthRepo {
     return _firebaseAuth;
   }
 
+  Future requestPasswordReset(String email) async {
+    await _firebaseAuth.sendPasswordResetEmail(
+      email: email,
+    );
+  }
+
   Future<UserCredential> signInWithCredentials(
       String email, String password) async {
     return await _firebaseAuth.signInWithEmailAndPassword(
@@ -48,7 +54,7 @@ class FireAuthRepo {
     );
   }
 
-  Future<User?> updateDisplayName(String name) async {
+  Future<User?> updateProfile(String name, String phone) async {
     await _firebaseAuth.currentUser!.updateDisplayName(name);
     await _firebaseAuth.currentUser!.reload();
     return _firebaseAuth.currentUser;
@@ -70,5 +76,9 @@ class FireAuthRepo {
       } catch (e) {
         _firebaseAuth.signOut();
       }
+  }
+
+  Future<void> resetPassword(String email) async {
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 }
