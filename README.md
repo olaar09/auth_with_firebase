@@ -9,7 +9,7 @@ Set up Firebase in your project as usual
 
 Install this package
 
-See example for how to use.
+See example for how to use @ https://github.com/olaar09/auth_with_firebase/tree/master/example
 
 This project is a starting point for a Dart
 [package](https://flutter.dev/developing-packages/),
