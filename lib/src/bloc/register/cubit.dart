@@ -5,8 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit() : super(RegisterState.initial());
-  FireAuthRepo _repo = FireAuthRepo();
+  FireAuthRepo _repo;
+
+  RegisterCubit({FireAuthRepo? repo})
+      : _repo = repo ?? FireAuthRepo(),
+        super(RegisterState.initial());
 
   Future fireRegisterEvent(
       {required String email,
