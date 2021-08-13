@@ -1,15 +1,8 @@
-# auth_with_firebase
+# infinite_scroll_flutter
 
-Intended for personal use in my projects but feel free to use also.
-
-Flutter login, signup, forgot and reset screens using firebase (email, password)
+Opinionated package  to help you lazily load and display small chunks of items as the user scrolls down the screen
 
 ## Getting Started
-- Set up Firebase in your project as usual
-
-- Install this package with flutter pub add auth_with_firebase
-
-- See example for how to use @ https://github.com/olaar09/auth_with_firebase/tree/master/example
 
 This project is a starting point for a Dart
 [package](https://flutter.dev/developing-packages/),
