@@ -13,6 +13,7 @@ class SignInPage extends StatelessWidget {
   final _passwordTextController = TextEditingController();
   final _focusEmail = FocusNode();
   final _focusPassword = FocusNode();
+  final SignInCubit authBloc;
 
   final Function({required User user}) onSignIn;
   final Function onRequested;
@@ -22,7 +23,7 @@ class SignInPage extends StatelessWidget {
     required this.onSignIn,
     required this.onSignUp,
     required this.onRequested,
-  });
+  }) : authBloc = SignInCubit();
 
   actionButtons(context, SignInCubit authBloc) {
     return Container(
@@ -87,8 +88,6 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext buildContext) {
-    SignInCubit authBloc = SignInCubit();
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
