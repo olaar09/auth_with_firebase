@@ -1,15 +1,18 @@
 import 'package:auth_with_firebase/src/bloc/forgot_password/state.dart';
+import 'package:auth_with_firebase/src/repo/fire_auth.dart';
 import 'package:auth_with_firebase/src/utils/widgets/inherit_parameters.dart';
 import 'package:auth_with_firebase/src/utils/widgets/widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
+  final FirebaseAuth firebaseAuth;
   final Function? onRequested;
 
-  ForgotPasswordPage({this.onRequested});
+  ForgotPasswordPage({this.onRequested, required this.firebaseAuth});
 
   @override
   _ForgotPasswordPageState createState() => _ForgotPasswordPageState();
@@ -46,7 +49,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext buildContext) {
-    ForgotPasswordCubit forgotBloc = ForgotPasswordCubit();
+    ForgotPasswordCubit forgotBloc = ForgotPasswordCubit(
+        repo: FireAuthRepo(firebaseAuth: widget.firebaseAuth));
     InheritParameters params = InheritParameters.of(buildContext);
 
     return Scaffold(

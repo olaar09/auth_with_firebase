@@ -5,8 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'state.dart';
 
 class SignInCubit extends Cubit<LoginState> {
-  SignInCubit() : super(LoginState.initial());
-  FireAuthRepo _repo = FireAuthRepo();
+  FireAuthRepo _repo;
+
+  SignInCubit({required FireAuthRepo fireAuthRepo})
+      : _repo = fireAuthRepo,
+        super(LoginState.initial());
 
   Future fireLoginAttempt(
       {required String email, required String password}) async {

@@ -1,5 +1,6 @@
 import 'package:auth_with_firebase/src/bloc/login/state.dart';
 import 'package:auth_with_firebase/src/bloc/register/state.dart';
+import 'package:auth_with_firebase/src/repo/fire_auth.dart';
 import 'package:auth_with_firebase/src/utils/widgets/inherit_parameters.dart';
 import 'package:auth_with_firebase/src/utils/widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,17 +8,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../auth_with_firebase.dart';
+import '../cubit.dart';
 
 class RegisterPage extends StatefulWidget {
-  Function({required User user, String? phoneNumber})? onSignUp;
+  final Function({required User user, String? phoneNumber})? onSignUp;
+  final FirebaseAuth firebaseAuth;
 
-  RegisterPage({this.onSignUp});
+  RegisterPage({this.onSignUp, required this.firebaseAuth});
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  late final RegisterCubit _registerCubit;
+
   final _registerFormKey = GlobalKey<FormState>();
 
   final _phoneTextController = TextEditingController();
@@ -28,6 +33,13 @@ class _RegisterPageState extends State<RegisterPage> {
   final _focusPhone = FocusNode();
   final _focusEmail = FocusNode();
   final _focusPassword = FocusNode();
+
+  @override
+  void initState() {
+    _registerCubit =
+        RegisterCubit(repo: FireAuthRepo(firebaseAuth: widget.firebaseAuth));
+    super.initState();
+  }
 
   actionButton(RegisterCubit registerCubit) {
     return Row(
@@ -49,7 +61,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext buildContext) {
-    RegisterCubit registerCubit = RegisterCubit();
     InheritParameters params = InheritParameters.of(context);
 
     return GestureDetector(
@@ -78,7 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               SizedBox(height: 10),
               BlocConsumer<RegisterCubit, RegisterState>(
-                bloc: registerCubit,
+                bloc: _registerCubit,
                 listener: (context, state) {
                   state.join(
                     (initial) => null,
@@ -140,10 +151,10 @@ class _RegisterPageState extends State<RegisterPage> {
                               )),
                           SizedBox(height: 18.0),
                           state.join(
-                            (initial) => actionButton(registerCubit),
+                            (initial) => actionButton(_registerCubit),
                             (loading) => networkActivityIndicator(),
-                            (loaded) => actionButton(registerCubit),
-                            (error) => actionButton(registerCubit),
+                            (loaded) => actionButton(_registerCubit),
+                            (error) => actionButton(_registerCubit),
                           )
                         ],
                       ),

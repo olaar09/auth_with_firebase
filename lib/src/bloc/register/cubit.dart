@@ -7,8 +7,8 @@ import 'state.dart';
 class RegisterCubit extends Cubit<RegisterState> {
   FireAuthRepo _repo;
 
-  RegisterCubit({FireAuthRepo? repo})
-      : _repo = repo ?? FireAuthRepo(),
+  RegisterCubit({required FireAuthRepo repo})
+      : _repo = repo,
         super(RegisterState.initial());
 
   Future fireRegisterEvent(

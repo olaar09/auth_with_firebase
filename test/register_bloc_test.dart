@@ -1,3 +1,4 @@
+import 'package:auth_with_firebase/src/bloc/register/cubit.dart';
 import 'package:auth_with_firebase/src/bloc/register/state.dart';
 import 'package:auth_with_firebase/src/repo/fire_auth.dart';
 import 'package:bloc_test/bloc_test.dart';

@@ -1,5 +1,6 @@
 import 'package:auth_with_firebase/src/bloc/forgot_password/ui/view.dart';
 import 'package:auth_with_firebase/src/bloc/login/state.dart';
+import 'package:auth_with_firebase/src/repo/fire_auth.dart';
 import 'package:auth_with_firebase/src/utils/widgets/inherit_parameters.dart';
 import 'package:auth_with_firebase/src/utils/widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,13 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../auth_with_firebase.dart';
+import '../cubit.dart';
 
-class SignInPage extends StatelessWidget {
-  final _emailTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
-  final _focusEmail = FocusNode();
-  final _focusPassword = FocusNode();
-  final SignInCubit authBloc;
+class SignInPage extends StatefulWidget {
+  final FirebaseAuth firebaseAuth;
 
   final Function({required User user}) onSignIn;
   final Function onRequested;
@@ -23,9 +21,32 @@ class SignInPage extends StatelessWidget {
     required this.onSignIn,
     required this.onSignUp,
     required this.onRequested,
-  }) : authBloc = SignInCubit();
+    required this.firebaseAuth,
+  });
 
-  actionButtons(context, SignInCubit authBloc) {
+  @override
+  _SignInPageState createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  late final SignInCubit _authBloc;
+
+  final _emailTextController = TextEditingController();
+
+  final _passwordTextController = TextEditingController();
+
+  final _focusEmail = FocusNode();
+
+  final _focusPassword = FocusNode();
+
+  @override
+  void initState() {
+    _authBloc = SignInCubit(
+        fireAuthRepo: FireAuthRepo(firebaseAuth: widget.firebaseAuth));
+    super.initState();
+  }
+
+  actionButtons(context, SignInCubit _authBloc) {
     return Container(
       // height: 100,
       child: Column(
@@ -36,7 +57,7 @@ class SignInPage extends StatelessWidget {
               Expanded(
                 child:
                     primaryButton('Sign In', vertical: 14, onPressed: () async {
-                  authBloc.fireLoginAttempt(
+                  _authBloc.fireLoginAttempt(
                     email: _emailTextController.text,
                     password: _passwordTextController.text,
                   );
@@ -57,8 +78,10 @@ class SignInPage extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => InheritParameters(
-                            forgotRequested: onRequested,
-                            child: ForgotPasswordPage(),
+                            forgotRequested: widget.onRequested,
+                            child: ForgotPasswordPage(
+                              firebaseAuth: widget.firebaseAuth,
+                            ),
                           ),
                         ),
                       );
@@ -72,8 +95,10 @@ class SignInPage extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => InheritParameters(
-                            onSignUp: onSignUp,
-                            child: RegisterPage(),
+                            onSignUp: widget.onSignUp,
+                            child: RegisterPage(
+                              firebaseAuth: widget.firebaseAuth,
+                            ),
                           ),
                         ),
                       );
@@ -96,11 +121,11 @@ class SignInPage extends StatelessWidget {
       ),
       //  backgroundColor: Vl.color(color: MColor.K_LIGHT_PLAIN),
       body: BlocConsumer<SignInCubit, LoginState>(
-        bloc: authBloc,
+        bloc: _authBloc,
         listener: (context, state) {
           state.join((initial) => null, (loading) => null, (loaded) {
             print('sign in complete, next action here');
-            onSignIn(user: loaded.user);
+            widget.onSignIn(user: loaded.user);
           }, (error) {
             if (error.genericError != null && error.genericError!.length > 0)
               mSnackBar(context: buildContext, message: error.genericError);
@@ -149,10 +174,10 @@ class SignInPage extends StatelessWidget {
                       height: 18.0,
                     ),
                     state.join(
-                      (initial) => actionButtons(context, authBloc),
+                      (initial) => actionButtons(context, _authBloc),
                       (loading) => networkActivityIndicator(),
-                      (loaded) => actionButtons(context, authBloc),
-                      (error) => actionButtons(context, authBloc),
+                      (loaded) => actionButtons(context, _authBloc),
+                      (error) => actionButtons(context, _authBloc),
                     ),
                   ],
                 ),

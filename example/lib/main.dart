@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Builder(
         builder: (context) => SignInPage(
+          firebaseAuth: FirebaseAuth.instance,
           onSignIn: ({required User user}) {
             print('Signed in ${user.email}');
             Navigator.push(

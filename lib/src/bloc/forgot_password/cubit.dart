@@ -5,8 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'state.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
-  ForgotPasswordCubit() : super(ForgotPasswordState.initial());
-  FireAuthRepo _repo = FireAuthRepo();
+  FireAuthRepo _repo;
+
+  ForgotPasswordCubit({required FireAuthRepo repo})
+      : _repo = repo,
+        super(ForgotPasswordState.initial());
 
   Future fireResetRequest({required String email}) async {
     try {
