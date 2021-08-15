@@ -8,5 +8,8 @@ export 'src/bloc/login/ui/view.dart';
 export 'src/bloc/login/cubit.dart';
 export 'src/bloc/register/cubit.dart';
 
+// export states
+export 'src/bloc/login/state.dart';
+
 // export firebase auth
 export 'package:firebase_auth/firebase_auth.dart';
