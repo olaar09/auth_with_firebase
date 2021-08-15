@@ -1,6 +1,6 @@
 name: auth_with_firebase
 description: Flutter Firebase powered login, signup, forgot and reset screens using (email, password authentication)
-version: 0.0.4
+version: 0.0.6
 homepage: https://github.com/olaar09/auth_with_firebase
 
 environment:
@@ -11,6 +11,7 @@ dependencies:
   bloc_test: ^8.1.0
   equatable: ^2.0.3
   firebase_auth: ^3.0.1
+  firebase_core: ^1.4.0
   flutter:
     sdk: flutter
   flutter_bloc: ^7.1.0

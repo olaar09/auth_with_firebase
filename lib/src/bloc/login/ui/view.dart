@@ -15,6 +15,7 @@ class SignInPage extends StatefulWidget {
 
   final Function({required User user}) onSignIn;
   final Function onRequested;
+  final Function? onContinueAsGuest;
   final Function({required User user, String phoneNumber}) onSignUp;
 
   SignInPage({
@@ -22,6 +23,7 @@ class SignInPage extends StatefulWidget {
     required this.onSignUp,
     required this.onRequested,
     required this.firebaseAuth,
+    this.onContinueAsGuest,
   });
 
   @override
@@ -118,6 +120,14 @@ class _SignInPageState extends State<SignInPage> {
         elevation: 0,
         leading: leadingBtn(buildContext),
         backgroundColor: Colors.white,
+        actions: [
+          widget.onContinueAsGuest == null
+              ? TextButton(
+                  onPressed: () => widget.onContinueAsGuest!(),
+                  child: Text('Continue as guest'),
+                )
+              : Container()
+        ],
       ),
       //  backgroundColor: Vl.color(color: MColor.K_LIGHT_PLAIN),
       body: BlocConsumer<SignInCubit, LoginState>(
