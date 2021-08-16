@@ -26,13 +26,11 @@ button(String text,
         ),
       ),
       style: ButtonStyle(
-        backgroundColor: loading
-            ? MaterialStateProperty.all(Colors.grey)
-            : MaterialStateProperty.all(color),
+        backgroundColor: MaterialStateProperty.all(color),
         elevation: MaterialStateProperty.all(0),
         side: MaterialStateProperty.all(BorderSide(
           width: 1,
-          color: loading ? Colors.grey : borderColor,
+          color: color,
         )),
       ),
     ),
