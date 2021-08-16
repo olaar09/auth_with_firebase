@@ -53,6 +53,9 @@ class MyApp extends StatelessWidget {
           onRequested: () {
             print('User forgot, requested');
           },
+          onContinueAsGuest: () {
+            print('continue as guest');
+          },
         ),
       ),
     );

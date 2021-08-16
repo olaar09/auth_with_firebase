@@ -122,11 +122,11 @@ class _SignInPageState extends State<SignInPage> {
         backgroundColor: Colors.white,
         actions: [
           widget.onContinueAsGuest == null
-              ? TextButton(
+              ? Container()
+              : TextButton(
                   onPressed: () => widget.onContinueAsGuest!(),
                   child: Text('Continue as guest'),
                 )
-              : Container()
         ],
       ),
       //  backgroundColor: Vl.color(color: MColor.K_LIGHT_PLAIN),
