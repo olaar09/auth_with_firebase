@@ -22,7 +22,11 @@ button(String text,
             EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
         child: Text(
           '$text',
-          style: TextStyle(fontSize: fontSize, color: textColor),
+          style: TextStyle(
+            fontSize: fontSize,
+            color: textColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       style: ButtonStyle(
