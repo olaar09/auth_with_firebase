@@ -30,8 +30,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           Row(
             children: [
               Expanded(
-                child: primaryButton('Reset password', vertical: 14,
-                    onPressed: () async {
+                child: primaryButton('Reset password',
+                    context: context, vertical: 14, onPressed: () async {
                   forgotBloc.fireResetRequest(
                     email: _emailTextController.text,
                   );

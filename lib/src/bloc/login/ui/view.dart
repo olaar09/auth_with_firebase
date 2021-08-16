@@ -16,6 +16,7 @@ class SignInPage extends StatefulWidget {
   final Function({required User user}) onSignIn;
   final Function onRequested;
   final Function? onContinueAsGuest;
+  final TextStyle? continueAsGuestStyle;
   final Function({required User user, String phoneNumber}) onSignUp;
 
   SignInPage({
@@ -23,6 +24,7 @@ class SignInPage extends StatefulWidget {
     required this.onSignUp,
     required this.onRequested,
     required this.firebaseAuth,
+    this.continueAsGuestStyle,
     this.onContinueAsGuest,
   });
 
@@ -57,8 +59,8 @@ class _SignInPageState extends State<SignInPage> {
           Row(
             children: [
               Expanded(
-                child:
-                    primaryButton('Sign In', vertical: 14, onPressed: () async {
+                child: primaryButton('Sign In', context: context, vertical: 14,
+                    onPressed: () async {
                   _authBloc.fireLoginAttempt(
                     email: _emailTextController.text,
                     password: _passwordTextController.text,
@@ -125,7 +127,10 @@ class _SignInPageState extends State<SignInPage> {
               ? Container()
               : TextButton(
                   onPressed: () => widget.onContinueAsGuest!(),
-                  child: Text('Continue as guest'),
+                  child: Text(
+                    'Continue as guest',
+                    style: widget.continueAsGuestStyle ?? TextStyle(),
+                  ),
                 )
         ],
       ),

@@ -41,11 +41,12 @@ class _RegisterPageState extends State<RegisterPage> {
     super.initState();
   }
 
-  actionButton(RegisterCubit registerCubit) {
+  actionButton(RegisterCubit registerCubit, BuildContext context) {
     return Row(
       children: [
         Expanded(
-          child: primaryButton('Sign Up', vertical: 14, onPressed: () async {
+          child: primaryButton('Sign Up', context: context, vertical: 14,
+              onPressed: () async {
             registerCubit.fireRegisterEvent(
                 //  firstName: _firstNameTextController.text,
                 email: _emailTextController.text,
@@ -151,10 +152,10 @@ class _RegisterPageState extends State<RegisterPage> {
                               )),
                           SizedBox(height: 18.0),
                           state.join(
-                            (initial) => actionButton(_registerCubit),
+                            (initial) => actionButton(_registerCubit, context),
                             (loading) => networkActivityIndicator(),
-                            (loaded) => actionButton(_registerCubit),
-                            (error) => actionButton(_registerCubit),
+                            (loaded) => actionButton(_registerCubit, context),
+                            (error) => actionButton(_registerCubit, context),
                           )
                         ],
                       ),

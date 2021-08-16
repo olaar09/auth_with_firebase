@@ -46,11 +46,12 @@ primaryButton(
   double vertical: 20,
   double fontSize: 16.0,
   double horizontal: 12.0,
+  required BuildContext context,
 }) {
   var cl = Colors.blue;
   return button(text,
       textColor: Colors.white,
-      color: cl,
+      color: Theme.of(context).highlightColor,
       loading: loading,
       borderColor: cl,
       fontSize: fontSize,
