@@ -40,7 +40,7 @@ class _TextInputState extends State<TextInput> {
   onFocusChanges() {
     setState(() {
       if (borderColor == Colors.grey) {
-        borderColor = Colors.blue;
+        borderColor = Theme.of(context).primaryColor;
       } else {
         borderColor = Colors.grey;
       }
@@ -89,8 +89,10 @@ class _TextInputState extends State<TextInput> {
                 color: Colors.grey[900],
                 fontWeight: FontWeight.normal,
                 letterSpacing: widget.letterSpacing),
-            placeholderStyle: const TextStyle(
-                fontWeight: FontWeight.normal, color: Colors.blue),
+            placeholderStyle: TextStyle(
+              fontWeight: FontWeight.normal,
+              color: Theme.of(context).primaryColor,
+            ),
             obscureText: widget.isPassword ? true : false,
             onChanged: (String text) => widget.onChanged!(text),
             keyboardType: widget.keyboardType,

@@ -2,39 +2,38 @@ import 'package:auth_with_firebase/src/utils/widgets/text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-Function onPress = () => {};
+loadingOnPress() {}
 
-button(String text,
-    {Color color = Colors.white,
-    borderColor: Colors.white,
-    textColor: Colors.black,
-    double horizontal: 12.0,
-    double vertical: 20,
-    bool loading = false,
-    double? fontSize: 18.0,
-    Function? onPressed}) {
+button(
+  String text, {
+  Color color = Colors.white,
+  borderColor: Colors.white,
+  textColor: Colors.black,
+  double horizontal: 12.0,
+  double vertical: 20,
+  double fontSize: 18,
+  bool loading = false,
+  required void Function() onPressed,
+}) {
   return Container(
     decoration: BoxDecoration(),
     child: ElevatedButton(
-      onPressed: () => onPressed!(),
+      onPressed: loading ? loadingOnPress : onPressed,
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
-        child: Text(
-          '$text',
-          style: TextStyle(
-            fontSize: fontSize,
-            color: textColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+          padding:
+              EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical),
+          child: Text(
+            '$text',
+            style: TextStyle(fontSize: 18, color: textColor),
+          )),
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(color),
+        backgroundColor: loading
+            ? MaterialStateProperty.all(Colors.grey)
+            : MaterialStateProperty.all(color),
         elevation: MaterialStateProperty.all(0),
         side: MaterialStateProperty.all(BorderSide(
           width: 1,
-          color: color,
+          color: loading ? Colors.grey : borderColor,
         )),
       ),
     ),
@@ -43,7 +42,7 @@ button(String text,
 
 primaryButton(
   String text, {
-  Function? onPressed,
+  required void Function() onPressed,
   bool loading = false,
   double vertical: 20,
   double fontSize: 16.0,
@@ -53,7 +52,7 @@ primaryButton(
   var cl = Colors.blue;
   return button(text,
       textColor: Colors.white,
-      color: Theme.of(context).highlightColor,
+      color: Theme.of(context).primaryColor,
       loading: loading,
       borderColor: cl,
       fontSize: fontSize,

@@ -59,13 +59,17 @@ class _SignInPageState extends State<SignInPage> {
           Row(
             children: [
               Expanded(
-                child: primaryButton('Sign In', context: context, vertical: 14,
-                    onPressed: () async {
-                  _authBloc.fireLoginAttempt(
-                    email: _emailTextController.text,
-                    password: _passwordTextController.text,
-                  );
-                }),
+                child: primaryButton(
+                  'Sign In',
+                  context: context,
+                  vertical: 14,
+                  onPressed: () async {
+                    _authBloc.fireLoginAttempt(
+                      email: _emailTextController.text,
+                      password: _passwordTextController.text,
+                    );
+                  },
+                ),
               ),
             ],
           ),
