@@ -11,10 +11,12 @@ class RegisterCubit extends Cubit<RegisterState> {
       : _repo = repo,
         super(RegisterState.initial());
 
-  Future fireRegisterEvent(
-      {required String email,
-      required String password,
-      required String name}) async {
+  Future fireRegisterEvent({
+    required String email,
+    required String password,
+    required String name,
+    required Future Function({required User user})? onSignUp,
+  }) async {
     try {
       emit(RegisterState.loading());
 
@@ -43,13 +45,20 @@ class RegisterCubit extends Cubit<RegisterState> {
       user = userCredential.user;
 
       await user!.updateDisplayName(name);
-      emit(RegisterState.loaded(user: user!));
+
+      /// call on signup
+      if (onSignUp != null) {
+        await onSignUp(user: user);
+      }
+
+      emit(RegisterState.loaded(user: user));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         this.emit(RegisterState.error(generic: 'Email already exist'));
       } else if (e.code == 'wrong-password') {
         this.emit(RegisterState.error(generic: 'Email or password incorrect'));
       } else {
+        print(e.stackTrace);
         this.emit(RegisterState.error(
             generic: 'An error occurred, please try again later'));
       }

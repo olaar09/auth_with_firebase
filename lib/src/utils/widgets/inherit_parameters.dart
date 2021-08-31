@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class InheritParameters extends InheritedWidget {
-  final Function({required User user})? onSignUp;
+  final Future Function({required User user})? onSignUp;
   final Function? forgotRequested;
 
   final Widget child;

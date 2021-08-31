@@ -11,7 +11,7 @@ import '../../../../auth_with_firebase.dart';
 import '../cubit.dart';
 
 class RegisterPage extends StatefulWidget {
-  final Function({required User user})? onSignUp;
+  final Future Function({required User user})? onSignUp;
   final FirebaseAuth firebaseAuth;
 
   RegisterPage({this.onSignUp, required this.firebaseAuth});
@@ -42,18 +42,21 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   actionButton(RegisterCubit registerCubit, BuildContext context) {
+    InheritParameters params = InheritParameters.of(context);
     return Row(
       children: [
         Expanded(
           child: primaryButton('Sign Up', context: context, vertical: 14,
               onPressed: () async {
             registerCubit.fireRegisterEvent(
-                //  firstName: _firstNameTextController.text,
-                email: _emailTextController.text,
-                // lastName: _lastNameTextController.text,
-                name: _nameTextController.text,
-                // bvn: _bvnTextController.text,
-                password: _passwordTextController.text);
+              //  firstName: _firstNameTextController.text,
+              email: _emailTextController.text,
+              // lastName: _lastNameTextController.text,
+              name: _nameTextController.text,
+              // bvn: _bvnTextController.text,
+              password: _passwordTextController.text,
+              onSignUp: widget.onSignUp ?? params.onSignUp,
+            );
           }),
         ),
       ],
@@ -95,13 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   state.join(
                     (initial) => null,
                     (loading) => '',
-                    (loaded) {
-                      if (widget.onSignUp != null) {
-                        widget.onSignUp!(user: loaded.user);
-                      } else {
-                        params.onSignUp!(user: loaded.user);
-                      }
-                    },
+                    (loaded) {},
                     (error) {
                       if (error.genericError != null &&
                           error.genericError!.length > 0)
