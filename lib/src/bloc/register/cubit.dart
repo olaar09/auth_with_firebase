@@ -14,13 +14,13 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future fireRegisterEvent(
       {required String email,
       required String password,
-      required String phone}) async {
+      required String name}) async {
     try {
       emit(RegisterState.loading());
 
-      if (phone.length < 1) {
-        this.emit(RegisterState.error(phoneError: ' Enter your phone number'));
-        throw Exception('Enter your phone number');
+      if (name.length < 1) {
+        this.emit(RegisterState.error(phoneError: ' Enter your name'));
+        throw Exception('Enter your name');
       }
 
       if (email.length < 1) {
@@ -41,6 +41,8 @@ class RegisterCubit extends Cubit<RegisterState> {
         throw Exception('timed out');
       });
       user = userCredential.user;
+
+      await user!.updateDisplayName(name);
       emit(RegisterState.loaded(user: user!));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {

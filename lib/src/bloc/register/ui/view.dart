@@ -11,7 +11,7 @@ import '../../../../auth_with_firebase.dart';
 import '../cubit.dart';
 
 class RegisterPage extends StatefulWidget {
-  final Function({required User user, String? phoneNumber})? onSignUp;
+  final Function({required User user})? onSignUp;
   final FirebaseAuth firebaseAuth;
 
   RegisterPage({this.onSignUp, required this.firebaseAuth});
@@ -25,7 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final _registerFormKey = GlobalKey<FormState>();
 
-  final _phoneTextController = TextEditingController();
+  final _nameTextController = TextEditingController();
 
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
@@ -51,7 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 //  firstName: _firstNameTextController.text,
                 email: _emailTextController.text,
                 // lastName: _lastNameTextController.text,
-                phone: _phoneTextController.text,
+                name: _nameTextController.text,
                 // bvn: _bvnTextController.text,
                 password: _passwordTextController.text);
           }),
@@ -97,14 +97,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     (loading) => '',
                     (loaded) {
                       if (widget.onSignUp != null) {
-                        widget.onSignUp!(
-                            user: loaded.user,
-                            phoneNumber: _phoneTextController.text);
+                        widget.onSignUp!(user: loaded.user);
                       } else {
-                        params.onSignUp!(
-                          user: loaded.user,
-                          phoneNumber: _phoneTextController.text,
-                        );
+                        params.onSignUp!(user: loaded.user);
                       }
                     },
                     (error) {
@@ -122,9 +117,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: ListView(
                         children: <Widget>[
                           SizedBox(height: 8.0),
-                          mTextField('Phone Number',
+                          mTextField('Full Name',
                               onChanged: (text) {},
-                              controller: _phoneTextController,
+                              controller: _nameTextController,
                               error: state.join(
                                 (initial) => null,
                                 (loading) => '',

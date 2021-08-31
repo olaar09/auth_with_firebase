@@ -17,8 +17,8 @@ class SignInCubit extends Cubit<LoginState> {
       emit(LoginState.loading());
 
       if (email.length < 1) {
-        this.emit(LoginState.error(email: ' Enter your phone number'));
-        throw Exception('Enter your phone number');
+        this.emit(LoginState.error(email: ' Enter your email address'));
+        throw Exception('Enter your email address');
       }
 
       if (password.length < 1) {
