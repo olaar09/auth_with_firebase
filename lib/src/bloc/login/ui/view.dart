@@ -17,7 +17,7 @@ class SignInPage extends StatefulWidget {
   final Function onRequested;
   final Function? onContinueAsGuest;
   final TextStyle? continueAsGuestStyle;
-  final Future Function({required User user}) onSignUp;
+  final Future Function({required User user, required String phone}) onSignUp;
 
   SignInPage({
     required this.onSignIn,

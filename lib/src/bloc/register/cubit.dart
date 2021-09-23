@@ -15,7 +15,9 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String email,
     required String password,
     required String name,
-    required Future Function({required User user})? onSignUp,
+    required String phone,
+    required Future Function({required User user, required String phone})?
+        onSignUp,
   }) async {
     try {
       emit(RegisterState.loading());
@@ -48,7 +50,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       /// call on signup
       if (onSignUp != null) {
-        await onSignUp(user: user);
+        await onSignUp(user: user, phone: phone);
       }
 
       emit(RegisterState.loaded(user: user));

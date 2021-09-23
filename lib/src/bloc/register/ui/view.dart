@@ -11,7 +11,7 @@ import '../../../../auth_with_firebase.dart';
 import '../cubit.dart';
 
 class RegisterPage extends StatefulWidget {
-  final Future Function({required User user})? onSignUp;
+  final Future Function({required User user, required String phone})? onSignUp;
   final FirebaseAuth firebaseAuth;
 
   RegisterPage({this.onSignUp, required this.firebaseAuth});
@@ -26,9 +26,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final _registerFormKey = GlobalKey<FormState>();
 
   final _nameTextController = TextEditingController();
-
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
+  final _phoneTextController = TextEditingController();
 
   final _focusPhone = FocusNode();
   final _focusEmail = FocusNode();
@@ -49,12 +49,10 @@ class _RegisterPageState extends State<RegisterPage> {
           child: primaryButton('Sign Up', context: context, vertical: 14,
               onPressed: () async {
             registerCubit.fireRegisterEvent(
-              //  firstName: _firstNameTextController.text,
               email: _emailTextController.text,
-              // lastName: _lastNameTextController.text,
               name: _nameTextController.text,
-              // bvn: _bvnTextController.text,
               password: _passwordTextController.text,
+              phone: _phoneTextController.text,
               onSignUp: widget.onSignUp ?? params.onSignUp,
             );
           }),
@@ -132,6 +130,15 @@ class _RegisterPageState extends State<RegisterPage> {
                                 (loaded) => null,
                                 (error) => error.emailError,
                               )),
+                          mTextField('Phone number',
+                              onChanged: (text) {},
+                              controller: _phoneTextController,
+                              error: state.join(
+                                (initial) => null,
+                                (loading) => '',
+                                (loaded) => null,
+                                (error) => error.phoneError,
+                              )),
                           mTextField('Password',
                               isPassword: true,
                               onChanged: (text) {},
@@ -160,5 +167,15 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _nameTextController.dispose();
+    _emailTextController.dispose();
+    _passwordTextController.dispose();
+    _phoneTextController.dispose();
+
+    super.dispose();
   }
 }

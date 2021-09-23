@@ -46,9 +46,9 @@ class MyApp extends StatelessWidget {
               ),
             );
           },
-          onSignUp: ({required User user, String? phoneNumber}) async {
+          onSignUp: ({required User user, required String phone}) async {
             print(
-                'User signup, email is ${user.email}  -- phone number is ${user.phoneNumber}');
+                'User signup, email is ${user.email}  -- phone number is ${phone}');
           },
           onRequested: () {
             print('User forgot, requested');
