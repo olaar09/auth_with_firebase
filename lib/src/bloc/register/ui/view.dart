@@ -46,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Row(
       children: [
         Expanded(
-          child: primaryButton('Sign Up', context: context, vertical: 14,
+          child: primaryButton('Create account', context: context,
               onPressed: () async {
             registerCubit.fireRegisterEvent(
               email: _emailTextController.text,
@@ -81,15 +81,15 @@ class _RegisterPageState extends State<RegisterPage> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  boldText('Create account'),
-                ],
+              boldText(
+                'Welcome !',
+                size: 24,
+                color: colorFromHex('2767CC'),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 20),
               BlocConsumer<RegisterCubit, RegisterState>(
                 bloc: _registerCubit,
                 listener: (context, state) {
@@ -114,15 +114,17 @@ class _RegisterPageState extends State<RegisterPage> {
                           SizedBox(height: 8.0),
                           mTextField('Full Name',
                               onChanged: (text) {},
+                              hintText: 'As shown on your ID card',
                               controller: _nameTextController,
                               error: state.join(
                                 (initial) => null,
                                 (loading) => '',
                                 (loaded) => null,
-                                (error) => error.phoneError,
+                                (error) => error.name,
                               )),
                           mTextField('Email address',
                               onChanged: (text) {},
+                              hintText: 'Email address',
                               controller: _emailTextController,
                               error: state.join(
                                 (initial) => null,
@@ -132,6 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               )),
                           mTextField('Phone number',
                               onChanged: (text) {},
+                              hintText: 'Phone number',
                               controller: _phoneTextController,
                               error: state.join(
                                 (initial) => null,
@@ -141,6 +144,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               )),
                           mTextField('Password',
                               isPassword: true,
+                              hintText: 'Password',
                               onChanged: (text) {},
                               controller: _passwordTextController,
                               error: state.join(
@@ -149,7 +153,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 (loaded) => null,
                                 (error) => error.passwordError,
                               )),
-                          SizedBox(height: 18.0),
+                          SizedBox(height: 40.0),
                           state.join(
                             (initial) => actionButton(_registerCubit, context),
                             (loading) => networkActivityIndicator(),

@@ -31,6 +31,7 @@ class RegisterState extends Union4Impl<_RegisterInitial, _RegisterLoading,
   factory RegisterState.error({
     String generic = '',
     String email = '',
+    String name = '',
     String password = '',
     String phoneError = '',
     String p = '',
@@ -39,8 +40,8 @@ class RegisterState extends Union4Impl<_RegisterInitial, _RegisterLoading,
         passwordError: password,
         emailError: email,
         genericError: generic,
+        name: name,
         phoneError: phoneError,
-
       )));
 }
 
@@ -70,6 +71,7 @@ class _RegisterError extends Equatable {
   final String? emailError;
   final String? phoneError;
   final String? fError;
+  final String? name;
   final String? passwordError;
   final String? genericError;
 
@@ -77,6 +79,7 @@ class _RegisterError extends Equatable {
       {required this.passwordError,
       this.phoneError,
       this.fError,
+      this.name,
       required this.emailError,
       this.genericError});
 

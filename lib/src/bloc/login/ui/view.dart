@@ -60,7 +60,7 @@ class _SignInPageState extends State<SignInPage> {
             children: [
               Expanded(
                 child: primaryButton(
-                  'Sign In',
+                  'Log In',
                   context: context,
                   onPressed: () async {
                     _authBloc.fireLoginAttempt(
@@ -171,6 +171,7 @@ class _SignInPageState extends State<SignInPage> {
                     mTextField('Password',
                         isPassword: true,
                         onChanged: (text) {},
+
                         controller: _passwordTextController,
                         error: state.join(
                           (initial) => null,
@@ -203,9 +204,7 @@ class _SignInPageState extends State<SignInPage> {
                             }),
                       ],
                     ),
-                    SizedBox(
-                      height: 80.0,
-                    ),
+                    SizedBox(height: 80.0),
                     state.join(
                       (initial) => actionButtons(context, _authBloc),
                       (loading) => networkActivityIndicator(),

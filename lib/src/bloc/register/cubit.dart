@@ -23,7 +23,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(RegisterState.loading());
 
       if (name.length < 1) {
-        this.emit(RegisterState.error(phoneError: ' Enter your name'));
+        this.emit(RegisterState.error(name: 'Enter your name'));
         throw Exception('Enter your name');
       }
 
