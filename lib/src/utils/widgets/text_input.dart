@@ -79,10 +79,8 @@ class _TextInputState extends State<TextInput> {
                 color: this.widget.bgColor == null
                     ? Colors.transparent
                     : this.widget.bgColor,
-                border: Border.all(
-                    color: this.borderColor == null
-                        ? Colors.grey[500]!
-                        : this.borderColor)),
+              border: Border.all(color: Colors.black, width: 2),
+            ),
             padding: EdgeInsets.all(this.widget.textBoxPadding),
             style: TextStyle(
                 fontSize: widget.fontSize,

@@ -4,6 +4,11 @@ import 'package:flutter/cupertino.dart';
 
 loadingOnPress() {}
 
+Color colorFromHex(String hexColor) {
+  final hexCode = hexColor.replaceAll('#', '');
+  return Color(int.parse('FF$hexCode', radix: 16));
+}
+
 button(
   String text, {
   Color color = Colors.white,
@@ -49,7 +54,7 @@ primaryButton(
   double horizontal: 12.0,
   required BuildContext context,
 }) {
-  var cl = Colors.blue;
+  var cl = Colors.black;
   return button(text,
       textColor: Colors.white,
       color: Theme.of(context).primaryColor,
@@ -100,7 +105,7 @@ mTextField(String label,
     {required void onChanged(String d),
     isPassword: false,
     double fontSize = 16,
-    double textBoxPadding = 16,
+    double textBoxPadding = 23,
     hintText = '',
     TextEditingController? controller,
     String? error,
@@ -110,7 +115,9 @@ mTextField(String label,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        label.length > 0 ? regularText('$label') : SizedBox(),
+        label.length > 0
+            ? regularText('$label', color: Colors.black)
+            : SizedBox(),
         TextInput(
             onChanged: onChanged,
             keyboardType: keyboardType,
@@ -167,7 +174,7 @@ Widget boldText(String text,
     style: TextStyle(
       fontWeight: fontWeight,
       fontSize: size,
-      color: color == null ? color : Colors.grey,
+      color: color != null ? color : Colors.grey,
     ),
   );
 }

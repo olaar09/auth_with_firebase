@@ -62,7 +62,6 @@ class _SignInPageState extends State<SignInPage> {
                 child: primaryButton(
                   'Sign In',
                   context: context,
-                  vertical: 14,
                   onPressed: () async {
                     _authBloc.fireLoginAttempt(
                       email: _emailTextController.text,
@@ -73,32 +72,17 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ],
           ),
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 10),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
                 child: TextButton(
-                    child:
-                        Text('Reset password', style: TextStyle(fontSize: 16)),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => InheritParameters(
-                            forgotRequested: widget.onRequested,
-                            child: ForgotPasswordPage(
-                              firebaseAuth: widget.firebaseAuth,
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-              ),
-              Expanded(
-                child: TextButton(
-                    child: Text('Create new account',
-                        style: TextStyle(fontSize: 16)),
+                    child: Text('Don’t have an account? Create account',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                        )),
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -163,11 +147,16 @@ class _SignInPageState extends State<SignInPage> {
                 child: ListView(
                   children: <Widget>[
                     SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        boldText('Sign in'),
-                      ],
+                    boldText(
+                      'Welcome ',
+                      size: 24,
+                      color: colorFromHex('2767CC'),
+                    ),
+                    SizedBox(height: 10),
+                    boldText(
+                      'Back !',
+                      size: 24,
+                      color: colorFromHex('2767CC'),
                     ),
                     SizedBox(height: 10),
                     mTextField('Email address',
@@ -189,8 +178,33 @@ class _SignInPageState extends State<SignInPage> {
                           (loaded) => null,
                           (error) => error.passwordError,
                         )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                            child: Text(
+                              'Forgot password',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => InheritParameters(
+                                    forgotRequested: widget.onRequested,
+                                    child: ForgotPasswordPage(
+                                      firebaseAuth: widget.firebaseAuth,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
+                      ],
+                    ),
                     SizedBox(
-                      height: 18.0,
+                      height: 80.0,
                     ),
                     state.join(
                       (initial) => actionButtons(context, _authBloc),
