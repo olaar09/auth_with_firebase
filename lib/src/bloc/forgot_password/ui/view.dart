@@ -51,7 +51,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext buildContext) {
     ForgotPasswordCubit forgotBloc = ForgotPasswordCubit(
         repo: FireAuthRepo(firebaseAuth: widget.firebaseAuth));
-    InheritParameters params = InheritParameters.of(buildContext);
+    InheritParameters? params = InheritParameters.of(buildContext);
 
     return Scaffold(
       appBar: AppBar(
@@ -70,7 +70,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               if (widget.onRequested != null)
                 widget.onRequested!();
               else
-                params.forgotRequested!();
+                params?.forgotRequested!();
             },
             (error) {
               if (error.genericError != null && error.genericError!.length > 0)

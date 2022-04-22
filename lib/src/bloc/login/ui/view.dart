@@ -150,13 +150,13 @@ class _SignInPageState extends State<SignInPage> {
                     boldText(
                       'Welcome ',
                       size: 24,
-                      color: colorFromHex('2767CC'),
+                      color: colorFromHex('6D38FF'),
                     ),
                     SizedBox(height: 10),
                     boldText(
                       'Back !',
                       size: 24,
-                      color: colorFromHex('2767CC'),
+                      color: colorFromHex('6D38FF'),
                     ),
                     SizedBox(height: 10),
                     mTextField('Email address',
@@ -171,7 +171,6 @@ class _SignInPageState extends State<SignInPage> {
                     mTextField('Password',
                         isPassword: true,
                         onChanged: (text) {},
-
                         controller: _passwordTextController,
                         error: state.join(
                           (initial) => null,

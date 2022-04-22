@@ -42,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   actionButton(RegisterCubit registerCubit, BuildContext context) {
-    InheritParameters params = InheritParameters.of(context);
+    InheritParameters? params = InheritParameters.of(context);
     return Row(
       children: [
         Expanded(
@@ -53,7 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
               name: _nameTextController.text,
               password: _passwordTextController.text,
               phone: _phoneTextController.text,
-              onSignUp: widget.onSignUp ?? params.onSignUp,
+              onSignUp: widget.onSignUp ?? params?.onSignUp,
             );
           }),
         ),
@@ -63,8 +63,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext buildContext) {
-    InheritParameters params = InheritParameters.of(context);
-
     return GestureDetector(
       onTap: () {
         _focusPhone.unfocus();
@@ -87,7 +85,7 @@ class _RegisterPageState extends State<RegisterPage> {
               boldText(
                 'Welcome !',
                 size: 24,
-                color: colorFromHex('2767CC'),
+                color: colorFromHex('6D38FF'),
               ),
               SizedBox(height: 20),
               BlocConsumer<RegisterCubit, RegisterState>(

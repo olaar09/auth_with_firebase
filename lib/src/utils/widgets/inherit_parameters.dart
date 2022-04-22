@@ -14,8 +14,8 @@ class InheritParameters extends InheritedWidget {
     required this.child,
   }) : super(key: key, child: child);
 
-  static InheritParameters of(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<InheritParameters>()!);
+  static InheritParameters? of(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<InheritParameters>());
   }
 
   @override
