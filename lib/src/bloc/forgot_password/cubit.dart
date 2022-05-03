@@ -13,6 +13,9 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
 
   Future fireResetRequest({required String email}) async {
     try {
+      email = email.trim();
+      email = email.toLowerCase();
+
       emit(ForgotPasswordState.loading());
 
       if (email.length < 1) {

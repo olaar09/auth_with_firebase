@@ -14,6 +14,9 @@ class SignInCubit extends Cubit<LoginState> {
   Future fireLoginAttempt(
       {required String email, required String password}) async {
     try {
+      email = email.trim();
+      email = email.toLowerCase();
+
       emit(LoginState.loading());
 
       if (email.length < 1) {

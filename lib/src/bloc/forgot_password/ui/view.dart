@@ -21,6 +21,8 @@ class ForgotPasswordPage extends StatefulWidget {
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final _emailTextController = TextEditingController();
 
+  final bool isForgotSent = false;
+
   actionButtons(context, ForgotPasswordCubit forgotBloc) {
     return Container(
       // height: 100,
@@ -66,12 +68,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           state.join(
             (initial) => null,
             (loading) => null,
-            (loaded) {
-              if (widget.onRequested != null)
-                widget.onRequested!();
-              else
-                params?.forgotRequested!();
-            },
+            (loaded) {},
             (error) {
               if (error.genericError != null && error.genericError!.length > 0)
                 mSnackBar(context: buildContext, message: error.genericError);
@@ -83,9 +80,23 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             (initial) => buildForm(state, context, forgotBloc),
             (loading) => buildForm(state, context, forgotBloc),
             (loaded) => Center(
-              child: Text(
-                'Password reset instruction sent to email',
-                style: TextStyle(fontSize: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Password reset instruction has been sent to your email (${_emailTextController.text})',
+                    style: TextStyle(fontSize: 16),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 30),
+                  primaryButton('Continue', context: context, vertical: 14,
+                      onPressed: () async {
+                    if (widget.onRequested != null)
+                      widget.onRequested!();
+                    else
+                      params?.forgotRequested!();
+                  })
+                ],
               ),
             ),
             (error) => buildForm(state, context, forgotBloc),

@@ -112,7 +112,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           SizedBox(height: 8.0),
                           mTextField('Full Name',
                               onChanged: (text) {},
-                              hintText: 'As shown on your ID card',
+                              hintText: 'As shown on your BVN / NIN or ID card',
                               controller: _nameTextController,
                               error: state.join(
                                 (initial) => null,

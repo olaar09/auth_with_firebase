@@ -20,6 +20,8 @@ class RegisterCubit extends Cubit<RegisterState> {
         onSignUp,
   }) async {
     try {
+      email = email.trim();
+      email = email.toLowerCase();
       emit(RegisterState.loading());
 
       if (name.length < 1) {
